@@ -1,0 +1,96 @@
+.<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src="js/script.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+
+    <meta name="description" content="Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words occurence counter, replace text with another text, and more with a single click!">
+    <meta name="keywords" content="lower case to uppercase, converster, replace text, online text editor, text manipulator, fix text, case converster, word counter">
+
+		<title>Welcome to Textify</title>
+	</head>
+
+	<body>
+
+		<div class="container form-horizontal">
+			<h1>Textify!</h1>
+			<p>Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words occurence counter, replace text with another text, and more with a single click!</p>
+
+			<textarea class="form-control" name="textarea" id="inputText" rows="7" oninput="inputCounter()" autofocus placeholder="Type or paste your text here..."></textarea>
+
+			<div class="row">
+				<div class="col-md-4 counters">
+					<span>Characters: <b><span id="charcounts">0</span></b></span>
+					<span>Words: <b><span id="wordcounts">0</span></b></span>
+				</div>
+				<div class="col-md-4">
+					<span id="status"></span>
+				</div>
+				<div class="col-md-4 rightSide">
+					<button class="btn btn-default btn-sm" onclick="clearInput()">
+					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+					Clear!</button>
+					<button class="btn btn-info btn-sm " onClick="copyInput()">
+					<span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+					Copy to Clipboard
+					</button>
+				</div>
+			</div>
+
+			<hr>
+
+			<ul class="list-inline">
+				<li><button class="btn btn-primary btn-sm" onClick="lowerCase()">lower case all</button></li>
+				<li><button class="btn btn-primary btn-sm" onClick="upperCase()">UPPER CASE ALL</button></li>
+				<!-- <li><button class="btn btn-primary btn-sm" onClick="capFirst()">Sentence case all</button></li> -->
+				<li><button class="btn btn-primary btn-sm" onClick="TitleCase()">Title Case All</button></li>
+			</ul>
+
+			<hr>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Count occurence for</label>
+				<div class="col-sm-3">
+					<input class="form-control" id="match" type="text" onInput="clearStatus()">
+				</div>
+				<div class="col-sm-1">
+					<button class="btn btn-primary btn-sm" onClick="countOccurence()">Count!</button>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Remove something</label>
+				<div class="col-sm-3">
+					<input class="form-control" id="toRemove" type="text" onInput="clearStatus()">
+				</div>
+				<div class="col-sm-1">
+					<button class="btn btn-primary btn-sm" onClick="removeSomething()" >Remove!</button>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Replace</label>
+				<div class="col-sm-3">
+					<input class="form-control" id="replaceThis" type="text" onInput="clearStatus()">
+				</div>
+				<label class="col-sm-1 control-label">with</label>
+				<div class="col-sm-3">
+					<input class="form-control" id="withThis" type="text" onInput="clearStatus()">
+				</div>
+				<div class="col-sm-1">
+					<button class="btn btn-primary btn-sm" onClick="replaceSomething()" >Replace!</button>
+				</div>
+			</div>
+      <hr>
+
+		</div>
+	</body>
+  <footer class="footer">Textify 2016</footer>
+</html>
