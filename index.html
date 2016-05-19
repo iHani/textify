@@ -13,7 +13,7 @@
 		<script src="js/script.js"></script>
 		<link rel="stylesheet" href="css/style.css">
 
-    <meta name="description" content="Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words occurence counter, replace text with another text, and more with a single click!">
+    <meta name="description" content="Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words Matches counter, replace text with another text, and more with a single click!">
     <meta name="keywords" content="lower case to uppercase, converster, replace text, online text editor, text manipulator, fix text, case converster, word counter">
 
 		<title>Welcome to Textify</title>
@@ -23,7 +23,7 @@
 
 		<div class="container form-horizontal">
 			<h1>Textify!</h1>
-			<p>Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words occurence counter, replace text with another text, and more with a single click!</p>
+			<p>Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words Matches counter, replace text with another text, and more with a single click!</p>
 
 			<textarea class="form-control" name="textarea" id="inputText" rows="7" oninput="inputCounter()" autofocus placeholder="Type or paste your text here..."></textarea>
 
@@ -36,10 +36,10 @@
 					<span id="status"></span>
 				</div>
 				<div class="col-md-4 rightSide">
-					<button class="btn btn-default btn-sm" onclick="clearInput()">
+					<button class="btn btn-default btn-sm" onclick="DoThis('clearInput')">
 					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 					Clear!</button>
-					<button class="btn btn-info btn-sm " onClick="copyInput()">
+					<button class="btn btn-info btn-sm" onClick="DoThis('copyInput')">
 					<span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
 					Copy to Clipboard
 					</button>
@@ -49,48 +49,48 @@
 			<hr>
 
 			<ul class="list-inline">
-				<li><button class="btn btn-primary btn-sm" onClick="lowerCase()">lower case all</button></li>
-				<li><button class="btn btn-primary btn-sm" onClick="upperCase()">UPPER CASE ALL</button></li>
-				<!-- <li><button class="btn btn-primary btn-sm" onClick="capFirst()">Sentence case all</button></li> -->
-				<li><button class="btn btn-primary btn-sm" onClick="TitleCase()">Title Case All</button></li>
+        <li><button class="btn btn-primary btn-sm" onClick="DoThis('lowerCase')">lower Case All</button></li>
+				<li><button class="btn btn-primary btn-sm" onClick="DoThis('upperCase')">UPPER CASE ALL</button></li>
+				<li><button class="btn btn-primary btn-sm" onClick="DoThis('titleCase')">Title Case All</button></li>
 			</ul>
 
 			<hr>
 
 			<div class="form-group">
-				<label class="col-sm-3 control-label">Count occurence for</label>
+				<label class="col-sm-3 control-label">Count Matches for</label>
 				<div class="col-sm-3">
-					<input class="form-control" id="match" type="text" onInput="clearStatus()">
+					<input class="form-control" id="match" type="text" onInput="DoThis('clearStatus')">
 				</div>
 				<div class="col-sm-1">
-					<button class="btn btn-primary btn-sm" onClick="countOccurence()">Count!</button>
+					<button class="btn btn-primary btn-sm" onClick="DoThis('countMatches')">Count!</button>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Remove something</label>
 				<div class="col-sm-3">
-					<input class="form-control" id="toRemove" type="text" onInput="clearStatus()">
+          <!-- <input class="form-control" id="toRemove" type="text" onInput="DoThis('clearStatus')"> -->
+          <input class="form-control" id="toRemove" type="text">
 				</div>
 				<div class="col-sm-1">
-					<button class="btn btn-primary btn-sm" onClick="removeSomething()" >Remove!</button>
+					<button class="btn btn-primary btn-sm" onClick="DoThis('removeSomething')" >Remove!</button>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Replace</label>
 				<div class="col-sm-3">
-					<input class="form-control" id="replaceThis" type="text" onInput="clearStatus()">
+					<input class="form-control" id="replaceThis" type="text" onInput="doThis('clearStatus')">
 				</div>
 				<label class="col-sm-1 control-label">with</label>
 				<div class="col-sm-3">
-					<input class="form-control" id="withThis" type="text" onInput="clearStatus()">
+					<input class="form-control" id="withThis" type="text" onInput="doThis('clearStatus')">
 				</div>
 				<div class="col-sm-1">
-					<button class="btn btn-primary btn-sm" onClick="replaceSomething()" >Replace!</button>
+          <button class="btn btn-primary btn-sm" onClick="DoThis('replaceSomething')" >Replace!</button>
 				</div>
 			</div>
       <hr>
 
 		</div>
 	</body>
-  <footer class="footer">Textify 2016</footer>
+  <footer class="footer">Textify 2016 <a href="https://github.com/iHani/textify"> <img src="github.ico" alt="" width=16></a></footer>
 </html>
