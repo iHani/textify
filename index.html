@@ -23,7 +23,7 @@
 
 		<div class="container form-horizontal">
 			<h1>Textify!</h1>
-			<p>Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words Matches counter, replace text with another text, and more with a single click!</p>
+			<p>Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words counter, replace text with another text, and more with a single click!</p>
 
 			<textarea class="form-control" name="textarea" id="inputText" rows="7" oninput="inputCounter()" autofocus placeholder="Type or paste your text here..."></textarea>
 
@@ -36,7 +36,7 @@
 					<span id="status"></span>
 				</div>
 				<div class="col-md-4 rightSide">
-					<button class="btn btn-default btn-sm" onclick="DoThis('clearInput')">
+					<button class="btn btn-default btn-sm" onclick="clearInputs('inputText')">
 					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 					Clear!</button>
 					<button class="btn btn-info btn-sm" onClick="DoThis('copyInput')">
@@ -49,9 +49,9 @@
 			<hr>
 
 			<ul class="list-inline">
-        <li><button class="btn btn-primary btn-sm" onClick="DoThis('lowerCase')">lower Case All</button></li>
-				<li><button class="btn btn-primary btn-sm" onClick="DoThis('upperCase')">UPPER CASE ALL</button></li>
-				<li><button class="btn btn-primary btn-sm" onClick="DoThis('titleCase')">Title Case All</button></li>
+        <li><button class="btn btn-primary btn-sm" onClick="convertCaseTo('lowerCase')">lower case all</button></li>
+				<li><button class="btn btn-primary btn-sm" onClick="convertCaseTo('upperCase')">UPPER CASE ALL</button></li>
+				<li><button class="btn btn-primary btn-sm" onClick="convertCaseTo('capitalize')">Title Case All</button></li>
 			</ul>
 
 			<hr>
@@ -59,7 +59,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Count Matches for</label>
 				<div class="col-sm-3">
-					<input class="form-control" id="match" type="text" onInput="DoThis('clearStatus')">
+					<input class="form-control" id="match" type="text" onInput="document.getElementById('status').innerHTML = ''">
 				</div>
 				<div class="col-sm-1">
 					<button class="btn btn-primary btn-sm" onClick="DoThis('countMatches')">Count!</button>
@@ -68,8 +68,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Remove something</label>
 				<div class="col-sm-3">
-          <!-- <input class="form-control" id="toRemove" type="text" onInput="DoThis('clearStatus')"> -->
-          <input class="form-control" id="toRemove" type="text">
+          <input class="form-control" id="toRemove" type="text" onInput="document.getElementById('status').innerHTML = ''">
 				</div>
 				<div class="col-sm-1">
 					<button class="btn btn-primary btn-sm" onClick="DoThis('removeSomething')" >Remove!</button>
@@ -88,6 +87,19 @@
           <button class="btn btn-primary btn-sm" onClick="DoThis('replaceSomething')" >Replace!</button>
 				</div>
 			</div>
+
+
+      <div class="form-group">
+				<div class="col-sm-3 control-label"></div>
+				<div class="col-sm-3 letftSide">
+          <button class="btn btn-default btn-sm" onclick="clearInputs('match','toRemove','replaceThis','withThis')">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            Clear fields!</button>
+				</div>
+			</div>
+
+
+
       <hr>
 
 		</div>
