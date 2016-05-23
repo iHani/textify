@@ -3,7 +3,7 @@
   position: relative;
   text-align: center;
   padding: 0px;
-  width: 93%;
+  width: 90%;
   max-width: 800px;
   padding-bottom: 50px;
 }
@@ -13,7 +13,6 @@
   font-size: medium;
   text-align: left;
   margin: auto;
-
 }
 
 .letftSide {
@@ -32,4 +31,9 @@
   text-align: center;
   font-size: x-small;
   color: grey;
+  margin-bottom:10px;
+}
+
+button {
+  margin: 2px;
 }

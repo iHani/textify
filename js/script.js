@@ -1,103 +1,202 @@
- function inputCounter() {
-     document.getElementById("status").innerHTML = '';
-     var inputText = $.trim(document.getElementById("inputText").value.replace( /  +/g, ' ' ));
-     var inputLength = inputText.length;
-     if (inputLength) {
-       document.getElementById("charcounts").innerHTML = inputLength;
-       document.getElementById("wordcounts").innerHTML = inputText.split(' ').length;
-     } else {
-       document.getElementById("charcounts").innerHTML = 0;
-       document.getElementById("wordcounts").innerHTML = 0;
-     }
-     convertCase(none);
+// Counter for characters and words in the selected for the inputText element
+function inputTextCounter() {
+    document.getElementById('status').innerHTML = '';
+    var inputText = $.trim(document.getElementById('inputText').value.replace( /  +/g, ' ' ));
+    var inputLength = inputText.length;
+    if (inputLength) {
+      document.getElementById('charcounts').innerHTML = inputLength;
+      document.getElementById('wordcounts').innerHTML = inputText.split(' ').length;
+    } else {
+      document.getElementById('charcounts').innerHTML = 0;
+      document.getElementById('wordcounts').innerHTML = 0;
+    }
+}
 
- }
+// Convert bewtween lower/upper/capitalize cases
+ function convertCase(element, newCase){
+   var input = document.getElementById(element).value;
+   if (isThereAnInput(element)) {
+      document.getElementById(element).style.textTransform = newCase;
+      if (newCase == 'lowerCase') { var m = 'lower case all done!' }
+      if (newCase == 'upperCase') { var m = 'UPPER CASE ALL DONE!' }
+      if (newCase == 'capitalize') { var m = 'Capitalize All Done!' }
+      updateStatus(m,'0052cc');
+  } else {
+    updateStatus('No text to manipulate!','red');
+  }
+  focusHere('inputText');
+}
 
+// Boolean checker of the length of the element 'here'
+function isThereAnInput(here) {
+  return ((document.getElementById(here).value.length) ? 1 : 0);
+}
+
+// clear values of all the passed element IDs
 function clearInputs(){
     for (i = 0; i < arguments.length; i++) {
         var inp = arguments[i];
         document.getElementById(inp).value = '';
-        if (inp == 'inputText') {
-          updateStatus('b3b3b3', 'Cleared');
-          document.getElementById("inputText").focus();
-          inputCounter();
-          convertCase(none);
+    }
+}
+
+function clearInputText(){
+    clearInputs('inputText');
+    inputTextCounter();
+    updateStatus('Cleared!','b3b3b3');
+    focusHere('inputText');
+}
+
+function copyFrom(element){
+  if (isThereAnInput(element)) {
+    var selector = document.querySelector('#'+element);
+    selector.select();
+    try {
+        var successful = document.execCommand('copy');
+        if (successful) {
+          updateStatus('Copied to clipboard!','33adff');
+        } else {
+          updateStatus('Unable to copy!','red');
         }
+    } catch (err) {
+    console.log('Oops, unable to copy');
     }
+  } else {
+    updateStatus('Nothing to copy!','red');
+  }
 }
 
-function convertCaseTo(toCase){
-  document.getElementById("inputText").style.textTransform = toCase;
-  updateStatus('blue', 'Enter some text..');
-}
-
-function DoThis(manipulation){
-    var inputText = document.getElementById("inputText").value;
-    if (inputText) {
-      switch(manipulation) {
-        case 'copyInput':
-            var selector = document.querySelector('#inputText');
-            selector.select();
-            try {
-            var successful = document.execCommand('copy');
-            if (successful) {
-                updateStatus('green', 'Copied to clipboard!');
-              } else {
-                updateStatus('red', 'Unable to copy!');
-            }
-            } catch (err) {
-                console.log('Oops, unable to copy');
-            }
-        break;
-
-        case 'countMatches':
-            var matchText = document.getElementById("match").value;
-            if (matchText) {
-                var matches = inputText.split(matchText).length - 1;
-                updateStatus('blue', 'Found <b>' + matches + '</b> matches!');
-                } else {
-                  updateStatus('red', 'What would you like to count?');
-            }
-        break;
-
-        case 'removeSomething':
-            var toRemove = document.getElementById("toRemove").value;
-            if (toRemove) {
-                var found = inputText.split(toRemove).length - 1;
-                cleared = inputText.split(toRemove).join('');
-                document.getElementById("inputText").value = cleared;
-                inputCounter();
-                updateStatus('blue', 'Found and removed <b>' + found + '</b> times!');
-            } else {
-              updateStatus('red', 'What would you like to remove?');
-            }
-        break;
-
-        case 'replaceSomething':
-            var replaceThis = document.getElementById("replaceThis").value;
-            var withThis = document.getElementById("withThis").value;
-            if (replaceThis && withThis) {
-                replaced = inputText.split(replaceThis).join(withThis);
-                document.getElementById("inputText").value = replaced;
-                var replaced = inputText.split(replaceThis).length - 1;
-                inputCounter();
-                updateStatus('blue', 'Replaced <b>' + replaced + '</b> times!');
-            } else {
-                updateStatus('red', 'What would you like to replaces?');
-            }
-        break;
-
-        default:
-
-        } // end of: switch (manipulation)
+function countMatches(){
+    if (isThereAnInput('inputText')) {
+        var matchText = document.getElementById('match').value;
+        if (matchText) {
+            var matches = document.getElementById('inputText').value.split(matchText).length - 1;
+            updateStatus('Found <b>' + matches + '</b> matches!', 'orange');
+        } else {
+            updateStatus('What would you like to count?', 'red');
+        }
     } else {
-      updateStatus('red', 'Enter some text..');
+        updateStatus('No text to search for matches!','red');
     }
-    // document.getElementById("status").innerHTML = 'Case: ' + manipulation;
 }
 
+function removeSomething(){
+    if (isThereAnInput('inputText')) {
+        var toRemove = document.getElementById('toRemove').value;
+        if (toRemove) {
+            var inputText = document.getElementById('inputText').value;
+            var found = inputText.split(toRemove).length - 1;
+            cleared = inputText.split(toRemove).join('');
+            document.getElementById('inputText').value = cleared;
+            inputTextCounter();
+            updateStatus('Found and removed <b>' + found + '</b> times!', 'orange');
+        } else {
+            updateStatus('What would you like to remove?', 'red');
+        }
+    } else {
+        updateStatus('No text to manipulate!','red');
+    }
+}
+
+// TODO shuold take 2+ params: 1st is the FromThis string we want
+// to removeThis from, 2nd+ params are the things toBeRemoved => for تشكيل or multiple removeals => TODO enter words separatd by comma to remove with one click
 //
-function updateStatus(color, message) {
-    document.getElementById("status").style.color = color;
-    document.getElementById("status").innerHTML = message;
+function replaceSomething() {
+    if (isThereAnInput('inputText')) {
+        var replaceThis = document.getElementById('replaceThis').value;
+        var withThis = document.getElementById('withThis').value;
+        if (replaceThis && withThis) {
+            var inputText = document.getElementById('inputText').value;
+            var replaced = replace(replaceThis, withThis, 'inputText');
+            document.getElementById('inputText').value = replaced;
+            var replaced = inputText.split(replaceThis).length - 1;
+            inputTextCounter();
+            updateStatus('Replaced <b>' + replaced + '</b> times!', 'orange');
+
+        } else {
+            updateStatus('What would you like to replaces?', 'red');
+        }
+    } else {
+      updateStatus('No text to manipulate!','red');
+    }
+}
+
+// returns a string after replacing the first arg with the second
+// arg in the third input value ID. First two arguments expects
+// strings, third argument exepects an input element ID with
+// a valid strings in it
+function replace(thisString, withThis, inThis) {
+    return document.getElementById(inThis).value.split(thisString).join(withThis);
+}
+
+//Updating innerHTML and color of the status span
+function updateStatus(message, color) {
+    document.getElementById('status').innerHTML = message;
+    document.getElementById('status').style.color = color;
+}
+
+// will focus on element
+function focusHere(elementID) {
+  document.getElementById(elementID).focus();
+}
+
+// save value from input.value to 'textified file' + ext
+// first argument expected to be a dot<something>
+// second argument expected to be the input element ID
+// TODO fix: it doesn't save in the same case sensitivity
+function downloadAs(ext, input){
+    if (isThereAnInput(input)) {
+        var a = document.body.appendChild(document.createElement('a'));
+        a.download = 'textified file'+ext;
+        a.href = 'data:text/html,' + document.getElementById(input).value;
+        a.click();
+    } else {
+        updateStatus('Nothing to save!','red');
+    }
+}
+
+// scramble
+function scramble(elementID, how){
+      var input = document.getElementById(elementID),
+          method = findMethod(elementID, how),
+          array = input.value.split(method),
+          shuffled = shuffle(array),
+          scrambled = shuffled.join(method)
+       ;
+      input.value = scrambled;
+}
+
+function findMethod(elementID, method){
+    switch(method) {
+      case 'SinP':
+          return '. ';
+      break;
+
+      case 'WinS':
+          return ' ';
+      break;
+
+      case 'LinW': return '';
+      break;
+
+      case 'WandL': return '';
+      break;
+
+    }
+}
+
+
+//Fisher–Yates shuffle https://bost.ocks.org/mike/shuffle/
+function shuffle(array) {
+  var m = array.length, t, i;
+  // While there remain elements to shuffle…
+  while (m) {
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+  return array;
 }

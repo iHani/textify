@@ -1,108 +1,139 @@
 .<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-		<script src="js/script.js"></script>
-		<link rel="stylesheet" href="css/style.css">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+      <script src="js/script.js"></script>
+      <script src="js/FileSaver.js"></script>
+      <script src="js/jquery.wordexport.js"></script>
 
-    <meta name="description" content="Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words Matches counter, replace text with another text, and more with a single click!">
-    <meta name="keywords" content="lower case to uppercase, converster, replace text, online text editor, text manipulator, fix text, case converster, word counter">
+      <link rel="stylesheet" href="css/style.css">
+      <meta name="description" content="Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words Matches counter, replace text with another text, and more with a single click!">
+      <meta name="keywords" content="lower case to uppercase, converster, replace text, online text editor, text manipulator, fix text, case converster, word counter">
+      <title>Welcome to Textify</title>
+   </head>
+   <body>
+      <div class="container form-horizontal">
+         <h1>Textify!</h1>
+         <p id="intro">Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words counter, replace text with another text, and more with a single click!</p>
+         <textarea class="form-control" name="textarea" id="inputText" rows="5" oninput="inputTextCounter()" autofocus placeholder="Type or paste your text here..."></textarea>
+         <div class="row">
+            <div class="col-md-4 counters">
+               <span>Characters: <b><span id="charcounts">0</span></b></span>
+               <span>Words: <b><span id="wordcounts">0</span></b></span>
+            </div>
+            <div class="col-md-4">
+               <span id="status"></span>
+            </div>
+            <div class="col-md-4 rightSide">
+               <button class="btn btn-default btn-sm" onclick="clearInputText()">
+               <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+               Clear</button>
+               <button class="btn btn-info btn-sm" onClick="copyFrom('inputText'); focusHere('inputText')">
+               <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+               Copy to Clipboard
+               </button>
+            </div>
+         </div>
+         <hr>
 
-		<title>Welcome to Textify</title>
-	</head>
-
-	<body>
-
-		<div class="container form-horizontal">
-			<h1>Textify!</h1>
-			<p>Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words counter, replace text with another text, and more with a single click!</p>
-
-			<textarea class="form-control" name="textarea" id="inputText" rows="7" oninput="inputCounter()" autofocus placeholder="Type or paste your text here..."></textarea>
-
-			<div class="row">
-				<div class="col-md-4 counters">
-					<span>Characters: <b><span id="charcounts">0</span></b></span>
-					<span>Words: <b><span id="wordcounts">0</span></b></span>
-				</div>
-				<div class="col-md-4">
-					<span id="status"></span>
-				</div>
-				<div class="col-md-4 rightSide">
-					<button class="btn btn-default btn-sm" onclick="clearInputs('inputText')">
-					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-					Clear!</button>
-					<button class="btn btn-info btn-sm" onClick="DoThis('copyInput')">
-					<span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-					Copy to Clipboard
-					</button>
-				</div>
-			</div>
-
-			<hr>
-
-			<ul class="list-inline">
-        <li><button class="btn btn-primary btn-sm" onClick="convertCaseTo('lowerCase')">lower case all</button></li>
-				<li><button class="btn btn-primary btn-sm" onClick="convertCaseTo('upperCase')">UPPER CASE ALL</button></li>
-				<li><button class="btn btn-primary btn-sm" onClick="convertCaseTo('capitalize')">Title Case All</button></li>
-			</ul>
-
-			<hr>
-
-			<div class="form-group">
-				<label class="col-sm-3 control-label">Count Matches for</label>
-				<div class="col-sm-3">
-					<input class="form-control" id="match" type="text" onInput="document.getElementById('status').innerHTML = ''">
-				</div>
-				<div class="col-sm-1">
-					<button class="btn btn-primary btn-sm" onClick="DoThis('countMatches')">Count!</button>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">Remove something</label>
-				<div class="col-sm-3">
-          <input class="form-control" id="toRemove" type="text" onInput="document.getElementById('status').innerHTML = ''">
-				</div>
-				<div class="col-sm-1">
-					<button class="btn btn-primary btn-sm" onClick="DoThis('removeSomething')" >Remove!</button>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">Replace</label>
-				<div class="col-sm-3">
-					<input class="form-control" id="replaceThis" type="text" onInput="doThis('clearStatus')">
-				</div>
-				<label class="col-sm-1 control-label">with</label>
-				<div class="col-sm-3">
-					<input class="form-control" id="withThis" type="text" onInput="doThis('clearStatus')">
-				</div>
-				<div class="col-sm-1">
-          <button class="btn btn-primary btn-sm" onClick="DoThis('replaceSomething')" >Replace!</button>
-				</div>
-			</div>
-
-
-      <div class="form-group">
-				<div class="col-sm-3 control-label"></div>
-				<div class="col-sm-3 letftSide">
-          <button class="btn btn-default btn-sm" onclick="clearInputs('match','toRemove','replaceThis','withThis')">
-            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-            Clear fields!</button>
-				</div>
-			</div>
+         <div class="form-group">
+            <label class="col-sm-3 control-label">Convert case</label>
+            <div class="col-sm-9 letftSide">
+               <ul class="list-inline">
+                  <li><button class="btn btn-primary btn-sm" onClick="convertCase('inputText','lowerCase')">lower case</button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertCase('inputText','upperCase')">UPPER CASE </button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertCase('inputText','capitalize')">Capitalize Case</button></li>
+                  <li><button class="btn btn-primary btn-sm disabled" onClick="">Capitalize first word</button></li>
+               </ul>
+            </div>
+         </div>
 
 
 
-      <hr>
+         <hr>
+         <div class="form-group">
+            <label class="col-sm-3 control-label">Count Matches for</label>
+            <div class="col-sm-3">
+               <input class="form-control" id="match" type="text" onInput="document.getElementById('status').innerHTML = ''">
+            </div>
+            <div class="col-sm-1">
+               <button class="btn btn-warning btn-sm" onClick="countMatches()">Count</button>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-3 control-label">Remove something</label>
+            <div class="col-sm-3">
+               <input class="form-control" id="toRemove" type="text" onInput="document.getElementById('status').innerHTML = ''">
+            </div>
+            <div class="col-sm-1">
+               <button class="btn btn-warning btn-sm" onClick="removeSomething()" >Remove</button>
+            </div>
 
-		</div>
-	</body>
-  <footer class="footer">Textify 2016 <a href="https://github.com/iHani/textify"> <img src="github.ico" alt="" width=16></a></footer>
+            <div  class="col-sm-4">
+            <div class="col-sm-6">
+               <button class="btn btn-warning btn-sm disabled" onClick="removeSomething()" >إزالة  التشكيل</button>
+            </div>
+            <div class="col-sm-6">
+               <button class="btn btn-warning btn-sm disabled" onClick="removeSomething()">إزالة المـــد</button>
+            </div>
+          </div>
+
+         </div>
+         <div class="form-group">
+            <label class="col-sm-3 control-label">Replace</label>
+            <div class="col-sm-3">
+               <input class="form-control" id="replaceThis" type="text" onInput="doThis('clearStatus')">
+            </div>
+            <label class="col-sm-1 control-label">with</label>
+            <div class="col-sm-3">
+               <input class="form-control" id="withThis" type="text" onInput="doThis('clearStatus')">
+            </div>
+            <div class="col-sm-1">
+               <button class="btn btn-warning btn-sm" onClick="replaceSomething()" >Replace</button>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="col-sm-3 control-label"></div>
+            <div class="col-sm-3 letftSide">
+               <button class="btn btn-default btn-sm" onclick="clearInputs('match','toRemove','replaceThis','withThis'); document.getElementById('status').innerHTML = ''">
+               <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+               Clear fields</button>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-sm-3 control-label">Save as</label>
+            <div class="col-sm-9 letftSide">
+               <ul class="list-inline">
+                  <li><button id="save-txt" class="btn btn-success btn-sm" onclick="downloadAs('.txt', 'inputText')">.txt</button></li>
+                  <li><button id="save-docx" class="btn btn-success btn-sm disabled">.docx</button></li>
+                  <li><button id="save-pdf" class="btn btn-success btn-sm disabled">.pdf</button></li>
+               </ul>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-sm-3 control-label">Scramble</label>
+            <div class="col-sm-9 letftSide">
+               <ul class="list-inline">
+                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText', 'SinP')">Senteces in paragraphes</button></li>
+                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText', 'WinS')">Words in Senteces</button></li>
+                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText', 'LinW')">Letters in words</button></li>
+                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText','WandL')">Words and letters</button></li>
+               </ul>
+            </div>
+         </div>
+         <hr>
+      </div>
+
+   </body>
+   <footer class="footer">Textify 2016 <a href="https://github.com/iHani/textify"> <img src="github.ico" alt="" width=16></a></footer>
 </html>
