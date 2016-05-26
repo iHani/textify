@@ -48,9 +48,9 @@
             <label class="col-sm-3 control-label">Convert case</label>
             <div class="col-sm-9 letftSide">
                <ul class="list-inline">
-                  <li><button class="btn btn-primary btn-sm" onClick="convertCase('inputText','lowerCase')">lower case</button></li>
-                  <li><button class="btn btn-primary btn-sm" onClick="convertCase('inputText','upperCase')">UPPER CASE </button></li>
-                  <li><button class="btn btn-primary btn-sm" onClick="convertCase('inputText','capitalize')">Capitalize Case</button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertInput('lowerCase')">lower case</button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertInput('upperCase')">UPPER CASE </button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertInput('capitalize')">Capitalize Case</button></li>
                   <li><button class="btn btn-primary btn-sm disabled" onClick="">Capitalize first word</button></li>
                </ul>
             </div>
@@ -63,7 +63,7 @@
                <input class="form-control" id="match" type="text" onInput="document.getElementById('status').innerHTML = ''">
             </div>
             <div class="col-sm-1">
-               <button class="btn btn-warning btn-sm" onClick="countMatches()">Count</button>
+               <button class="btn btn-warning btn-sm" onClick="countMatches('match', 'inputText')">Count</button>
             </div>
          </div>
          <div class="form-group">
@@ -72,15 +72,15 @@
                <input class="form-control" id="toRemove" type="text" onInput="document.getElementById('status').innerHTML = ''">
             </div>
             <div class="col-sm-1">
-               <button class="btn btn-warning btn-sm" onClick="removeSomething()" >Remove</button>
+               <button class="btn btn-warning btn-sm" onClick="removeAString('toRemove', 'inputText')" >Remove</button>
             </div>
 
             <div  class="col-sm-4">
             <div class="col-sm-6">
-               <button class="btn btn-warning btn-sm disabled" onClick="removeSomething()" >إزالة  التشكيل</button>
+               <button class="btn btn-warning btn-sm" onClick="removeTashkeel('َ','ً','ُ','ٌ','ِ','ٍ','ّ','‘’','ْ')" >إزالة  التشكيل</button>
             </div>
             <div class="col-sm-6">
-               <button class="btn btn-warning btn-sm disabled" onClick="removeSomething()">إزالة المـــد</button>
+               <button class="btn btn-warning btn-sm" onClick="removeTashkeel('ـ')">إزالة المـــد</button>
             </div>
           </div>
 
@@ -95,7 +95,7 @@
                <input class="form-control" id="withThis" type="text" onInput="doThis('clearStatus')">
             </div>
             <div class="col-sm-1">
-               <button class="btn btn-warning btn-sm" onClick="replaceSomething()" >Replace</button>
+               <button class="btn btn-warning btn-sm" onClick="replaceStrings()" >Replace</button>
             </div>
          </div>
          <div class="form-group">
@@ -122,10 +122,9 @@
             <label class="col-sm-3 control-label">Scramble</label>
             <div class="col-sm-9 letftSide">
                <ul class="list-inline">
-                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText', 'SinP')">Senteces order</button></li>
-                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText', 'WinS')">Words order</button></li>
-                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText', 'LinW')">Letters in words</button></li>
-                  <li><button class="btn btn-danger btn-sm" onclick="scramble('inputText','WandL')">Words and letters</button></li>
+                  <li><button class="btn btn-danger btn-sm" onclick="scramble('sentences')">Senteces order</button></li>
+                  <li><button class="btn btn-danger btn-sm" onclick="scramble('words')">Words order</button></li>
+                  <li><button class="btn btn-danger btn-sm" onclick="scramble('letters')">Letters in words</button></li>
                </ul>
             </div>
          </div>
