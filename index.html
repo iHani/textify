@@ -16,13 +16,13 @@
 
       <link rel="stylesheet" href="css/style.css">
       <meta name="description" content="Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words Matches counter, replace text with another text, and more with a single click!">
-      <meta name="keywords" content="lower case to uppercase, converster, replace text, online text editor, text manipulator, fix text, case converster, word counter">
-      <title>Welcome to Textify</title>
+      <meta name="keywords" content="lower case to uppercase, converster, replace text, online text editor, text manipulator, fix text, case converster, word counter, إزالة التشكيل, إزالة المد, تحرير النص">
+      <title>Welcome to Textmani</title>
    </head>
    <body>
       <div class="container form-horizontal">
-         <h1>Textify!</h1>
-         <p id="intro">Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words counter, replace text with another text, and more with a single click!</p>
+         <h1>Textmani!</h1>
+         <p id="intro">Fast online text manipulator that allows you to use Lowercase/Uppercase converter, words counter, replace text with another text, shuffle words and letters in sentences, and more with a single click!</p>
          <textarea class="form-control" name="textarea" id="inputText" rows="5" oninput="inputTextCounter()" autofocus placeholder="Type or paste your text here..."></textarea>
          <div class="row">
             <div class="col-md-4 counters">
@@ -48,10 +48,10 @@
             <label class="col-sm-3 control-label">Convert case</label>
             <div class="col-sm-9 letftSide">
                <ul class="list-inline">
-                  <li><button class="btn btn-primary btn-sm" onClick="convertInput('lowerCase')">lower case</button></li>
-                  <li><button class="btn btn-primary btn-sm" onClick="convertInput('upperCase')">UPPER CASE </button></li>
-                  <li><button class="btn btn-primary btn-sm" onClick="convertInput('capitalize')">Capitalize Case</button></li>
-                  <li><button class="btn btn-primary btn-sm disabled" onClick="">Capitalize first word</button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertInputCase('lowerCase')">lower case</button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertIconvertInputCasenput('upperCase')">UPPER CASE </button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="convertInputCase('capitalize')">Capitalize Case</button></li>
+                  <li><button class="btn btn-primary btn-sm" onClick="capitalizeFirst()">Capitalize first word</button></li>
                </ul>
             </div>
          </div>
@@ -106,8 +106,21 @@
                Clear fields</button>
             </div>
          </div>
+
          <hr>
          <div class="form-group">
+            <label class="col-sm-3 control-label">Scramble</label>
+            <div class="col-sm-9 letftSide">
+               <ul class="list-inline">
+                  <li><button class="btn btn-success btn-sm" onclick="scramble('sentences')">Senteces order</button></li>
+                  <li><button class="btn btn-success btn-sm" onclick="scramble('words')">Words order</button></li>
+                  <li><button class="btn btn-success btn-sm" onclick="scramble('letters')">Letters in words</button></li>
+               </ul>
+            </div>
+         </div>
+
+         <hr>
+         <!-- <div class="form-group">
             <label class="col-sm-3 control-label">Save as</label>
             <div class="col-sm-9 letftSide">
                <ul class="list-inline">
@@ -116,21 +129,9 @@
                   <li><button id="save-pdf" class="btn btn-success btn-sm disabled">.pdf</button></li>
                </ul>
             </div>
-         </div>
-         <hr>
-         <div class="form-group">
-            <label class="col-sm-3 control-label">Scramble</label>
-            <div class="col-sm-9 letftSide">
-               <ul class="list-inline">
-                  <li><button class="btn btn-danger btn-sm" onclick="scramble('sentences')">Senteces order</button></li>
-                  <li><button class="btn btn-danger btn-sm" onclick="scramble('words')">Words order</button></li>
-                  <li><button class="btn btn-danger btn-sm" onclick="scramble('letters')">Letters in words</button></li>
-               </ul>
-            </div>
-         </div>
-         <hr>
-      </div>
+         </div> -->
 
+      </div>
    </body>
    <footer class="footer">Textify 2016 <a href="https://github.com/iHani/textify"> <img src="github.ico" alt="" width=16></a></footer>
 </html>

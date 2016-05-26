@@ -1,4 +1,18 @@
 
+// Counter for characters and words in the selected for the inputText element
+function inputTextCounter() {
+    document.getElementById('status').innerHTML = '';
+    var inputText = $.trim(document.getElementById('inputText').value.replace(/  +/g, ' '));
+    var inputLength = inputText.length;
+    if (inputLength) {
+        document.getElementById('charcounts').innerHTML = inputLength;
+        document.getElementById('wordcounts').innerHTML = inputText.split(' ').length;
+    } else {
+        document.getElementById('charcounts').innerHTML = 0;
+        document.getElementById('wordcounts').innerHTML = 0;
+    }
+}
+
 // will .value =''; all passed elemet IDs (sould pass input type elements)
 function clearInputs() {
   for (i = 0; i < arguments.length; i++) {
@@ -10,6 +24,7 @@ function clearInputs() {
 // clear #inputText and update counts
 function clearInputText() {
   clearInputs('inputText')
+  inputTextCounter();
   updateStatus('Cleared!', 'b3b3b3')
   focusHere('inputText')
 }
@@ -32,7 +47,7 @@ function copyFrom(element) {
 }
 
 // Case converter for 'inputText' input field
-function convertInput(newCase){
+function convertInputCase(newCase){
   if (checkInputValue('inputText')) {
     let n = document.getElementById('inputText').style.textTransform = newCase
     if (n) {
@@ -41,6 +56,32 @@ function convertInput(newCase){
     }
   } else
   { updateStatus('No text to manipulate', 'red') }
+}
+
+// Capitalize first word by searching for dots in 'inputText' and
+// capitalize the forst word after it
+function capitalizeFirst(){
+  if (!checkInputValue('inputText')) {
+    updateStatus('No text to manipulate!', 'red')
+  } else {
+    input = document.getElementById('inputText').value
+    s = input.split('.')
+      t = [], g= []
+    for (i = 0; i < s.length; i++) {
+      t[i] = $.trim(s[i])
+      g[i] = capFirst(t[i])
+    }
+    //document.getElementById('inputText').style.textTransform = none
+    document.getElementById('inputText').value = g.join('. ')
+    updateStatus('Case converted', 'blue')
+  }
+}
+
+function capFirst(str) {
+  m = str.split(' ')
+  r = m[0].replace(m[0].charAt(0), m[0].charAt(0).toUpperCase())
+  m[0] = r
+  return m.join(' ')
 }
 
 //
@@ -67,6 +108,7 @@ function removeAString(str1, str2) {
         fromThis   = document.getElementById(str2).value
     if (removeThis) {
       document.getElementById(str2).value = deleteStrings(fromThis, removeThis)
+      inputTextCounter();
       updateStatus('Found and removed <b>' + matchesFound(removeThis, fromThis) + '</b>  times!', 'orange')
     } else {
       updateStatus('What would you like to remove?', 'red')
@@ -85,6 +127,7 @@ function removeTashkeel(){
       f += matchesFound(inp, fromThis.value)
       fromThis.value = deleteStrings(fromThis.value, inp)
     }
+    inputTextCounter();
     updateStatus('تم حذف  <b>' + f + '</b>  خانة', 'orange')
   }
 }
@@ -97,6 +140,7 @@ function removeAString(str1, str2) {
         fromThis   = document.getElementById(str2).value
     if (removeThis) {
       document.getElementById(str2).value = deleteStrings(fromThis, removeThis)
+      inputTextCounter();
       updateStatus('Found and removed <b>' + matchesFound(removeThis, fromThis) + '</b>  times!', 'orange')
     } else {
       updateStatus('What would you like to remove?', 'red')
@@ -109,17 +153,21 @@ function replaceStrings() {
   if (!checkInputValue('inputText')) {
     updateStatus('No text to manipulate!', 'red')
   } else {
-    let replaceThis = c
+    let replaceThis = document.getElementById('replaceThis').value
     if (replaceThis) {
       let withThis = document.getElementById('withThis').value,
-          inThis = document.getElementById('inputText')
-      updateStatus('Replaced <b>' + matchesFound(replaceThis, inThis.value) + '</b> times!', 'orange')
-      inThis.value = doReplace(replaceThis, withThis, inThis.value)
+          inThis = document.getElementById('inputText').value
+      document.getElementById('inputText').value = doReplace(replaceThis, withThis, inThis)
+      inputTextCounter();
+      updateStatus('Replaced <b>' + matchesFound(replaceThis, inThis) + '</b> times!', 'orange')
+
+
     } else {
       updateStatus('What would you like to replace?', 'red')
     }
   }
 }
+
 
 // save value from input.value to 'textified file' + ext
 // first argument expected to be a dot<something>
@@ -136,6 +184,7 @@ function downloadAs(ext, input) {
   }
 }
 
+
 //
 function scramble(type) {
   if (!checkInputValue('inputText')) {
@@ -147,13 +196,15 @@ function scramble(type) {
           c = doReplace(' ,', ', ', shuffle(input.split(', ')).join(', '))
           d = doReplace('.', '. ', shuffle(c.split('.')).join('.'))
           document.getElementById('inputText').value = doReplace('  ', ' ', d)
-          updateStatus('Sentences scrambled', 'lightred')
+          updateStatus('Sentences scrambled', 'green')
         break;
 
         case 'words':
           n = input.split(' ')
           w = shuffle(n).join(' ')
           document.getElementById('inputText').value = w
+          updateStatus('Words scrambled', 'green')
+
         break;
 
         case 'letters':
@@ -162,6 +213,8 @@ function scramble(type) {
             n[i] = shuffle(n[i].split('')).join('')
           }
           document.getElementById('inputText').value = n.join(' ')
+          updateStatus('Letters scrambled', 'green')
+
         break;
 
         default:
