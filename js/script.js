@@ -160,8 +160,6 @@ function replaceStrings() {
       document.getElementById('inputText').value = doReplace(replaceThis, withThis, inThis)
       inputTextCounter();
       updateStatus('Replaced <b>' + matchesFound(replaceThis, inThis) + '</b> times!', 'orange')
-
-
     } else {
       updateStatus('What would you like to replace?', 'red')
     }
@@ -173,16 +171,16 @@ function replaceStrings() {
 // first argument expected to be a dot<something>
 // second argument expected to be the input element ID
 // TODO fix: it doesn't save in the same case sensitivity
-function downloadAs(ext, input) {
-  if (!checkInputValue('inputText')) {
-    updateStatus('No text to save!', 'red')
-  } else {
-    var a = document.body.appendChild(document.createElement('a'));
-    a.download = 'textified file' + ext;
-    a.href = 'data:text/html,' + document.getElementById(input).value;
-    a.click();
-  }
-}
+// function downloadAs(ext, input) {
+//   if (!checkInputValue('inputText')) {
+//     updateStatus('No text to save!', 'red')
+//   } else {
+//     var a = document.body.appendChild(document.createElement('a'));
+//     a.download = 'textified file' + ext;
+//     a.href = 'data:text/html,' + document.getElementById(input).value;
+//     a.click();
+//   }
+// }
 
 
 //
